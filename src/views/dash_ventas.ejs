@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<%- include('fragments/dash_head') %>
+<body>
+    <div class="wrapper">
+        <%- include('fragments/dash_sidebar') %>
+        <div class="main">
+            <%- include('fragments/dash_navbar') %>
+            <main class="content px-3 py-4">
+                <div class="container-fluid">
+                    <div class="mb-3">
+                        <h3 class="fw-bold fs-4 mb-3">Yesti Moda Dashboard</h3>
+                            <div class="mb-0 p-5 bg-light">
+                                <div class="d-flex align-items-center mb-3 flex-wrap gap-1">
+                                    <h3 class="fw-bold fs-4 my-3 flex-grow-1">Ventas</h3>
+                                    <a href="/reporte/ventas" class="btn btn-danger ms-md-auto" target="_blank">Generar Reporte</a>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-striped text-center">
+                                        <thead>
+                                            <tr class="highlight text-center">
+                                                <th scope="col">#</th>
+                                                <th scope="col">Cliente</th>
+                                                <th scope="col">Fecha</th>
+                                                <th scope="col">Total</th>
+                                                <th scope="col">Estado</th>
+                                                <th scope="col">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% ventas.forEach((venta, index) => { %>
+                                                <tr>
+                                                    <th scope="row"><%= index + 1 %></th>
+                                                    <td><%= venta.cliente %></td>
+                                                    <td><%= venta.fecha %></td>
+                                                    <td>$<%= parseFloat(venta.total).toLocaleString('es-CO') %></td>
+                                                    <td><%= venta.estado %></td>
+                                                    <td>
+                                                        <div class="d-flex flex-wrap justify-content-center gap-1">
+                                                            <button class="btn btn-info btn-sm text-white"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#modalVenta<%= venta.idventa %>">
+                                                                Ver Detalles
+                                                            </button>
+                                                            <form method="POST" action="/ventas/anular/<%= venta.idventa %>" class="d-inline">
+                                                                <button class="btn btn-danger btn-sm text-white"
+                                                                    onclick="return confirm('¿Seguro que deseas anular esta venta?')">
+                                                                    Anular
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            <% }); %>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- Modales fuera de la tabla -->
+                                <% ventas.forEach((venta) => { %>
+                                  <div class="modal fade" id="modalVenta<%= venta.idventa %>" tabindex="-1" aria-labelledby="modalLabel<%= venta.idventa %>" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="modalLabel<%= venta.idventa %>">Detalles de la venta ID: <%= venta.idventa %></h5>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <p><strong>Fecha:</strong> <%= venta.fecha %></p>
+                                          <p><strong>Cliente:</strong> <%= venta.cliente || 'N/A' %></p>
+                                          <p><strong>Total:</strong> $<%= parseFloat(venta.total).toLocaleString('es-CO') %></p>
+
+                                          <% if (Array.isArray(venta.detalles) && venta.detalles.length > 0) { %>
+                                            <div class="table-responsive">
+                                              <table class="table table-bordered text-center align-middle">
+                                                <thead class="table-light">
+                                                  <tr>
+                                                    <th>Producto</th>
+                                                    <th>Cantidad</th>
+                                                    <th>Precio</th>
+                                                    <th>Subtotal</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                  <% venta.detalles.forEach(producto => { %>
+                                                    <tr>
+                                                      <td><%= producto.nombre %></td>
+                                                      <td><%= producto.cantidad %></td>
+                                                      <td>$<%= parseFloat(producto.precio).toLocaleString('es-CO') %></td>
+                                                      <td>$<%= parseFloat(producto.precio * producto.cantidad).toLocaleString('es-CO') %></td>
+                                                    </tr>
+                                                  <% }) %>
+                                                </tbody>
+                                              </table>
+                                            </div>
+                                          <% } else { %>
+                                            <p class="text-muted">No hay detalles disponibles.</p>
+                                          <% } %>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                <% }); %>
+
+                            </div>
+                    </div>
+                </div>
+            </main>
+            <%- include('fragments/dash_footer') %>
+        </div>
+    </div>
+</body>
+</html>

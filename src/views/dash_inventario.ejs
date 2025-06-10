@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<%- include('fragments/dash_head') %>
+<body>
+    <div class="wrapper">
+        <%- include('fragments/dash_sidebar') %>
+        <div class="main">
+            <%- include('fragments/dash_navbar') %>
+            <main class="content px-3 py-4">
+                <div class="container-fluid">
+                    <div class="mb-3">
+                        <h3 class="fw-bold fs-4 mb-3"><%= title %></h3>
+                            <div class="mb-0 p-5 bg-light">
+                                <div class="d-flex align-items-center mb-3 flex-wrap gap-1">
+                                    <h3 class="fw-bold fs-4 my-3 flex-grow-1">Inventario</h3>
+                                    <a href="/reporte/inventario" class="btn btn-danger ms-md-auto" target="_blank">Generar Reporte</a>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-striped text-center">
+                                        <thead>
+                                            <tr class="highlight text-center">
+                                                <th scope="col">#</th>
+                                                <th scope="col">Nombre</th>
+                                                <th scope="col">Categoría</th>
+                                                <th scope="col">Subcategoría</th>
+                                                <th scope="col">Talla</th>
+                                                <th scope="col">Color</th>
+                                                <th scope="col">Stock</th>
+                                                <th scope="col">Precio</th>
+                                                <th scope="col">SKU</th>
+                                                <th scope="col">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if (inventario.length > 0) { %>
+                                                <% inventario.forEach((item, index) => { %>
+                                                <tr class="<%= item.idestado === 2 ? 'table-danger' : '' %>">
+                                                    <th scope="row"><%= index + 1 %></th>
+                                                    <td><%= item.nombre %></td>
+                                                    <td><%= item.categoria %></td>
+                                                    <td><%= item.subcategoria %></td>
+                                                    <td><%= item.talla %></td>
+                                                    <td>
+                                                        <span class="color-badge" data-color="<%= item.color %>" title="<%= item.color %>"></span>
+                                                    </td>
+                                                    <td><%= item.stock %></td>
+                                                    <td>$<%= item.precio.toLocaleString('es-CO') %></td>
+                                                    <td><%= item.sku %></td>
+                                                    <td>
+                                                        <div class="d-flex flex-wrap justify-content-center gap-1">
+                                                            <button class="btn btn-warning btn-sm text-white">Modificar</button>
+                                                            <form method="POST" action="/inventario/cambiar-estado/<%= item.idinventario %>">
+                                                                <button class="btn btn-<%= item.idestado === 2 ? 'success' : 'danger' %> btn-sm">
+                                                                    <%= item.idestado === 2 ? 'Restaurar' : 'Eliminar' %>
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <% }); %>
+                                            <% } else { %>
+                                                <tr>
+                                                    <td colspan="10" class="text-center">No hay productos en el inventario</td>
+                                                </tr>
+                                            <% } %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </main>
+            <%- include('fragments/dash_footer') %>
+        </div>
+    </div>
+</body>
+</html>

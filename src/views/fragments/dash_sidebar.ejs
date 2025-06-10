@@ -1,0 +1,76 @@
+        <aside id="sidebar">
+            <div class="d-flex justify-content-between p-4">
+                <div class="sidebar-logo">
+                    <a href="#">Yesti Moda</a>
+                </div>
+                <button class="toggle-btn border-0" type="button">
+                    <i id="icon" class='bx bxs-chevrons-right'></i>
+                </button>
+            </div>
+            <ul class="sidebar-nav">
+                <li class="sidebar-item">
+                    <a href="/" class="sidebar-link">
+                        <i class='bx bxs-analyse'></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="/perfil" class="sidebar-link">
+                        <i class='bx bx-user'></i>
+                        <span>Perfil</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#products" 
+                    aria-expanded="false" aria-controls="products">
+                        <i class='bx bx-package' ></i>
+                        <span>Productos</span>
+                    </a>
+                    <ul id="products" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="/inventario" class="sidebar-link">Inventario</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">Agregar Producto</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-item">
+                    <a href="/ventas" class="sidebar-link">
+                        <i class='bx bxs-bar-chart-alt-2'></i>
+                        <span>Ventas</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" data-bs-toggle="modal" data-bs-target="#modal-1">
+                        <i class='bx bxs-bell-ring' ></i>
+                        <span>Notificaciones</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class='bx bxs-cog' ></i>
+                        <span>Configuraciones</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <a class="sidebar-link" id="logout">
+                    <i class='bx bx-log-out'></i>
+                    <span>Cerrar sesión</span>
+                </a>
+            </div>
+        </aside>
+    <div class="modal fade" id="modal-1" tabindex="-1" aria-hidden="true" aria-labelledby="label-modal-1">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title fw-bold">Notificaciones</h3>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <p>No tienes nuevas notificaciones.</p>
+                </div>
+            </div>
+        </div>
+    </div>

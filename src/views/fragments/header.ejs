@@ -1,0 +1,19 @@
+<div id="header-logo" class="navbar-brand d-flex align-items-center justify-content-center me-0">
+    <a id="logo" href="/"></a>
+</div>
+<nav id="nav" class="nav d-none d-md-flex">
+    <a class="nav-link" href="/">Inicio</a>
+    <a class="nav-link" href="/tienda">Tienda</a>
+    <a class="nav-link" href="#">Nosotros</a>
+</nav>
+<div id="header-icons" class="d-flex justify-content-evenly justify-content-md-end align-items-center p-md-0 gap-2 px-3 py-2">
+    <button type="button" id="burger-button" class="btn d-md-none border-0" data-bs-toggle="offcanvas" data-bs-target="#nav-slap" aria-controls="Hamburgesa"></button>
+    <button type="button" id="search-button" class="btn border-0" data-bs-toggle="offcanvas" data-bs-target="#search-slap" aria-controls="Busqueda"></button>
+    <button type="button" id="favorite-button" class="btn border-0" data-bs-toggle="offcanvas" data-bs-target="#favorite-slap" aria-controls="Favoritos"></button>
+    <button type="button" id="bag-button" class="btn border-0" data-bs-toggle="offcanvas" data-bs-target="#bag-slap" aria-controls="Bolsa"></button>
+    <% if (usuario) { %>
+        <button type="button" id="profile-button" class="btn border-0 p-0" data-bs-toggle="offcanvas" data-bs-target="#profile-slap" aria-controls="Menú"><img class="object-fit-cover w-100 h-100" style="border-radius: 50%;" src="/img/formas.jpg"></button>
+    <% } else { %>
+        <button type="button" id="login-button" class="btn border-0" data-bs-toggle="modal" data-bs-target="#login-modal" aria-controls="Inicio de Sesión"></button>
+    <% } %>
+</div>

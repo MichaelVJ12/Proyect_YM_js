@@ -1,0 +1,252 @@
+<section id="nav-slap" class="offcanvas offcanvas-start" tabindex="-1" aria-labelledby="Espacio de navegación movil">
+    <div class="offcanvas-header py-md-2">
+        <h1 id="nav-slap-title" class="offcanvas-title me-auto">Navegación</h1>
+        <button type="button" class="exit btn border-0" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+    </div>
+    <div class="offcanvas-body">
+        <nav id="nav-slap-nav" class="nav flex-column">
+            <a class="nav-link" href="/"><h3>Inicio <i class="bi bi-house-door"></i></h3></a>
+            <a class="nav-link" href="/tienda"><h3>Tienda <i class="bi bi-shop"></i></h3></a>
+            <a class="nav-link" href="#"><h3>Nosotros <i class="bi bi-people"></i></h3></a>
+        </nav>
+    </div>
+</section>
+<section id="bag-slap" class="offcanvas offcanvas-end" tabindex="-1" aria-labelledby="Bolsa de compras">
+    <div class="offcanvas-header py-md-2">
+        <h1 id="bag-slap-title" class="offcanvas-title me-auto">Bolsa</h1>
+        <button type="button" class="exit btn border-0" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+    </div>
+    <div class="offcanvas-body">
+    </div>
+</section>
+<section id="favorite-slap" class="offcanvas offcanvas-end" tabindex="-1" aria-labelledby="Favoritos">
+    <div class="offcanvas-header py-md-2">
+        <h1 id="favorite-slap-title" class="offcanvas-title me-auto">Favoritos</h1>
+        <button type="button" class="exit btn border-0" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+    </div>
+    <div class="offcanvas-body">
+    </div>
+</section>
+<section id="search-slap" class="offcanvas offcanvas-end" tabindex="-1" aria-labelledby="Busqueda">
+    <div class="offcanvas-header d-flex justify-content-end">
+        <form action="#" class="flex-fill">
+            <input type="text" class="form-control" placeholder="Buscar...">
+        </form>
+        <button type="button" class="exit btn ms-3 border-0" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+    </div>
+</section>
+<% if (usuario) { %>
+<section id="profile-slap" class="offcanvas offcanvas-end" tabindex="-1" aria-labelledby="Perfil de usuario">
+    <div class="offcanvas-header py-md-2">
+        <h1 id="favorite-slap-title" class="offcanvas-title me-auto">Mi perfil</h1>
+        <button type="button" class="exit btn ms-auto border-0" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="text-center mb-3">
+            <img src="/img/formas.jpg" class="rounded-circle mb-2" width="80" height="80" alt="Avatar">
+            <h6>
+                <%= usuario.nombre %>
+            </h6>
+            <small><%= usuario.email %></small>
+        </div>
+        <hr>
+        <div class="row justify-content-center">
+            <div class="col-6 mb-3">
+                <div id="profile-card-bag" class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Bolsa <i class="bi bi-bag"></i></i></h5>
+                        <p class="card-text">--</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 mb-3">
+                <div id="profile-card-fav" class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Favoritos <i class="bi bi-heart"></i></h5>
+                        <p class="card-text">--</p>
+                    </div>            
+                </div>
+            </div>
+            <div class="col-6 mb-3">
+                <div id="profile-card-cash" class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Gastado <i class="bi bi-cash"></i></h5>
+                        <p class="card-text">--</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 mb-3">
+                <div id="profile-card-box" class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Pedidos <i class="bi bi-box2"></i></h5>
+                        <p class="card-text">--</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <h4>Direcciones</h4>
+        <div></div>
+        <button id="more-address" type="button" class="btn btn-secondary border-0 px-1 py-0" data-bs-toggle="modal" data-bs-target="#direccion-modal">
+            <h4 class="m-0"><i class="bi bi-plus"></i></h4>
+        </button>
+        
+        <form id="form-logout" action="/api/logout" method="POST">
+            <button type="submit" class="btn btn-danger w-100 mt-3">Cerrar sesión</button>
+        </form>
+    </div>
+</section>
+<section class="modal fade" id="direccion-modal" tabindex="-1" aria-labelledby="direccion-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content border-0 shadow rounded-0">
+            <div class="modal-header py-md-2">
+                <h1 class="modal-title" id="direccion-modal-label">Agregar dirección</h1>
+                <button type="button" class="exit btn ms-auto border-0" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <form id="form-direccion" action="/api/direccion" method="POST">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="nombre_lugar" class="form-label">Nombre del lugar</label>
+                        <input type="text" class="form-control" id="address-name" name="nombre_lugar" required></input>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="departamento" class="form-label">Departamento</label>
+                        <select id="departamento" class="form-select" name="departamento" required>
+                            <option value="">Seleccione un departamento</option>
+                        </select>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="municipio" class="form-label">Municipio</label>
+                        <select id="municipio" class="form-select" name="municipio" required disabled>
+                            <option value="">Seleccione un municipio</option>
+                        </select>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="direccion" class="form-label">Dirección detallada</label>
+                        <textarea class="form-control" id="direccion" name="direccion" rows="2" required></textarea>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="postal" class="form-label">Código postal</label>
+                        <input type="text" class="form-control" id="postal" name="postal" required></input>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary w-100 border-0">Guardar dirección</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<% } else { %>
+<section id="login-modal" class="modal fade" tabindex="-1" aria-labelledby="Inicio de Sesión" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-0">
+            <div class="modal-header px-4">
+                <h1 class="modal-title me-auto" id="login-title">Iniciar Sesión</h1>
+                <button type="button" class="exit btn border-0" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-4">
+                <form id="form-login" method="POST" action="/api/login" class="needs-validation" novalidate>
+                    <div class="form-floating mb-2">
+                        <input type="email" id="input-email" name="email" class="form-control" placeholder="tu_correo@yaslimoda.com" required>
+                        <label for="input-email" class="form-label">Correo</label>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="form-floating mb-4">
+                        <input type="password" name="contrasena" id="input-password" class="form-control" placeholder="●●●●●●●●" required>
+                        <label for="input-password" class="form-label">Contraseña</label>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div id="error-msg-login" class="alert alert-danger d-none" role="alert">
+                    </div>
+                    <div class="row gap-2 mx-2">
+                        <input type="submit" class="btn btn-primary border-0" value="Ingresar">
+                        <button type="button" id="Register-button" class="btn btn-secondary border-0" data-bs-toggle="modal" data-bs-target="#register-modal" aria-controls="Registrarse">Registrarse</button>
+                    </div>
+                </form>
+                <div class="text-center my-3">
+                    <a id="forgot-password" class="fw-bolder" href="#">Olvidé mi contraseña</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="register-modal" class="modal fade" tabindex="-1" aria-labelledby="Inicio de Sesión" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-0">
+            <div class="modal-header px-4">
+                <button type="button" id="Retroceder-register" class="retroceder btn border-0" data-bs-toggle="modal" data-bs-target="#login-modal" aria-controls="Retroceder"></button>
+                <h1 class="modal-title mx-auto" id="Register-title">Registrarse</h1>
+                <button type="button" class="exit btn" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-4">
+                <form id="form-register" method="POST" action="/api/registro" class="needs-validation" novalidate>
+                    <div class="form-floating mb-2">
+                        <input id="name" name="nombre" type="text" class="form-control" placeholder="Nombre" required>
+                        <label for="name" class="form-label">Nombre</label>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input id="last-name" name="apellido" type="text" class="form-control" placeholder="Apellido" required>
+                        <label for="last-name" class="form-label">Apellido</label>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input id="email" name="email" type="email" class="form-control" placeholder="Correo Electrónico" required>
+                        <label for="email" class="form-label">Correo Electrónico</label>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input id="password" name="contrasena" type="password" class="form-control" placeholder="●●●●●●●●" required>
+                        <label for="password" class="form-label">Contraseña</label>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input id="password-2" name="contrasena_2" type="password" class="form-control" placeholder="●●●●●●●●" required>
+                        <label for="password-2" class="form-label">Repetir Contraseña</label>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fecha" class="form-label">Fecha de Nacimiento</label>
+                        <input type="date" id="fecha" class="form-control" name="fecha" required>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="mb-8 form-check p-3">
+                        <input type="checkbox" name = consent-pro class="form-check-input rounded-0" id="exampleCheck1">
+                        <label class="form-check-label" for="consent-pro">Doy mi consentimiento para actividades de promoción comercial relacionadas con Yesti Moda de acuerdo con nuestra Política de privacidad.</label>
+                    </div>
+                    <div class="mb-8 form-check p-3">
+                        <input type="checkbox" name = consent-off class="form-check-input rounded-0" id="exampleCheck2">
+                        <label class="form-check-label" for="consent-off">Doy mi consentimiento para obtener ofertas y planes personalizados basados en mis preferencias de acuerdo con la Política de privacidad de Yesti Moda.</label>
+                    </div>
+                    <div id="error-msg" class="alert alert-danger d-none" role="alert">
+                    </div>
+                    <div class="row mx-2">
+                        <button type="submit" class="btn btn-primary border-0">Registrarse</button>
+                    </div>
+                    <div class="my-3">
+                        <span>Al continuar, confirmas haber leído y entendido <a id="privacy" class="fw-bolder" href="#">Política de privacidad</a> de Yesti Moda </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+    <div class="modal fade" id="confirmacion-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h4>¡Registro exitoso! Bienvenido/a.</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<% } %>
