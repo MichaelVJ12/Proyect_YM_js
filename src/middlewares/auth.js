@@ -9,7 +9,7 @@ function verificarSesion(req, res, next) {
 }
 
 
-function redirigirSiAutenticado(req, res, next) {
+/*function redirigirSiAutenticado(req, res, next) {
   const usuario = req.session.usuario;
   
   if (usuario && (usuario.tipo === 1 || usuario.tipo === 2)) {
@@ -17,6 +17,6 @@ function redirigirSiAutenticado(req, res, next) {
   }
 
   next(); 
-}
+}*/
 
 module.exports = { verificarSesion };
