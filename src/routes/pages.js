@@ -5,7 +5,7 @@ const dashModel = require('../models/dashModel');
 const dashControl = require('../controllers/dashControl');
 const { actualizarImagenPerfil } = require('../controllers/dashControl');
 const upload = require('../middlewares/upload');
-const { verificarSesion, redirigirSiAutenticado } = require('../middlewares/auth');
+const { verificarSesion } = require('../middlewares/auth');
 
 router.use((req, res, next) => {
   res.locals.usuario = req.session.usuario || null;
@@ -13,7 +13,7 @@ router.use((req, res, next) => {
   next();
 });
 
-router.get('/', redirigirSiAutenticado, obtenerNovedades, (req, res) => {
+router.get('/', obtenerNovedades, (req, res) => {
   const usuario = res.locals.usuario;
 
   if (usuario && (usuario.tipo == 1 || usuario.tipo == 2)) {
@@ -27,9 +27,7 @@ router.get('/', redirigirSiAutenticado, obtenerNovedades, (req, res) => {
   }
 });
 
-router.get('/dashboard', verificarSesion, dashControl.renderDashboard);
-
-router.get('/tienda', redirigirSiAutenticado, obtenerProductos, (req, res) => { 
+router.get('/tienda', obtenerProductos, (req, res) => { 
   const usuario = res.locals.usuario;
 
   if (usuario && (usuario.tipo == 1 || usuario.tipo == 2)) {
@@ -41,18 +39,9 @@ router.get('/tienda', redirigirSiAutenticado, obtenerProductos, (req, res) => {
   }
 });
 
-router.get('/inventario', verificarSesion, async (req, res) => {
-  try {
-    const inventario = await dashModel.getInventario();
-    res.render('dash_inventario', { 
-      title: 'Inventario Yesti Moda',
-      inventario 
-    });
-  } catch (error) {
-    console.error('Error al cargar inventario:', error);
-    res.status(500).render('error', { message: 'Error al cargar el inventario' });
-  }
-});
+router.get('/dashboard', verificarSesion, dashControl.renderDashboard);
+
+router.get('/inventario', verificarSesion, dashControl.renderInventario);
 
 router.get('/reporte/inventario', verificarSesion, dashControl.generarReporteInventario);
 

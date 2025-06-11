@@ -19,4 +19,4 @@ function redirigirSiAutenticado(req, res, next) {
   next(); 
 }
 
-module.exports = { verificarSesion, redirigirSiAutenticado };
+module.exports = { verificarSesion };

@@ -4,6 +4,20 @@ const puppeteer = require('puppeteer');
 const path = require('path');
 const fs = require('fs');
 
+
+exports.renderInventario = async (req, res) => {
+    try {
+        const inventario = await dashModel.getInventario();
+        res.render('dash_inventario', { 
+            title: 'Inventario Yesti Moda',
+            inventario 
+        });
+    } catch (error) {
+        console.error('Error al renderizar inventario:', error);
+        res.status(500).render('error', { message: 'Error al cargar el inventario' });
+    }
+};
+
 exports.cambiarEstadoInventario = async (req, res) => {
   const { id } = req.params;
   try {
